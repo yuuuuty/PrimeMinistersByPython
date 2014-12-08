@@ -18,10 +18,22 @@ class Example(object):
 		# SouriDaijinというディレクトリを作成する。
 		# すでに存在すれば、当該ディレクトリを消して、新たに作り、
 		# 存在しなければ、当該ディレクトリを作成する。
+
+		#ここからデバックのためのコメントアウト多数につき注意
+
+		#print "[example]ホームディレクトリを指定:",
 		home_directory = os.environ['HOME']
-		base_directory = home_directory + '/Desktop/SouriDaijin'
+		#print home_directory
+
+		print "[example]ベースディレクトリを指定:",
+		base_directory = home_directory + '/Desktop/SouriDaijin/'
+		print base_directory
+
 		if os.path.isdir(base_directory):
+			print "[example]ベースディレクトリからディレクトリを削除"
 			shutil.rmtree(base_directory)
+
+		print "[example]ベースディレクトリからディレクトリを作成"
 		os.makedirs(base_directory)
 
 		# ダウンローダに必要なファイル群をすべてダウンロードしてもらい、
