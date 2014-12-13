@@ -30,9 +30,9 @@ class Translator(object):
 				end_day = datetime.date(current_date.year, current_date.month, current_date.day)
 			else:
 				end_day = datetime.date(int(a_date[3]),int(a_date[4]),int(a_date[5]))
-			priod_days = end_day - start_day
+			period_days = end_day - start_day
 
-			return re.sub(r'(\d)(?=(\d{3})+(?!\d))', '\\1,', str(priod_days.days+1))
+			return re.sub(r'(\d)(?=(\d{3})+(?!\d))', '\\1,', str(period_days.days+1))
 		else:
 			return "在位日数"
 
