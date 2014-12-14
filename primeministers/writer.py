@@ -37,7 +37,7 @@ class Writer(io.IO):
 			body_str = body_str+"\t\t\t\t\t\t<tr>\n"
 			for value in a_tuple.values():
 				if index == 0:
-					body_str = body_str+"\t\t\t\t\t\t<td class=\"center-pink\"><string>"+value+"</string></td>\n"
+					body_str = body_str+"\t\t\t\t\t\t<td class=\"center-pink\"><strong>"+value+"</strong></td>\n"
 				elif index % 2 == 0:
 					body_str = body_str+"\t\t\t\t\t\t<td class=\"center-yellow\">"+value+"</td>\n"
 				else :
