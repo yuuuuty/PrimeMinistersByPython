@@ -11,30 +11,34 @@ public class Table extends Object
 	 * 属性リストを記憶するフィールド
 	 */
 	private Attributes attributes;
-	
+
 	/**
 	 * 画像群を記憶するフィールド。
 	 */
 	private ArrayList<BufferedImage> images;
-	
+
 	/**
 	 * サムネイル画像群を記憶するフィールド。
 	 */
 	private ArrayList<BufferedImage> thumbnails;
-	
+
 	/**
 	 * タプル群を記憶するフィールド。
 	 */
 	private ArrayList<Tuple> tuples;
-	
+
 	/**
 	 * テーブルのコンストラクタ
 	 */
 	public Table()
 	{
+		System.out.println("[Table]:コンストラクタ起動");
+		this.images = new ArrayList<BufferedImage>();
+		this.thumbnails = new ArrayList<BufferedImage>();
+		this.tuples = new ArrayList<Tuple>();
 		return;
 	}
-	
+
 	/**
 	 * タプルを追加する。
 	 */
@@ -42,7 +46,7 @@ public class Table extends Object
 	{
 		return;
 	}
-	
+
 	/**
 	 * 属性リストを応答する。
 	 */
@@ -50,7 +54,7 @@ public class Table extends Object
 	{
 		return null;
 	}
-	
+
 	/**
 	 * 属性リストを設定する。
 	 */
@@ -58,7 +62,7 @@ public class Table extends Object
 	{
 		return;
 	}
-	
+
 	/**
 	 * 画像群を応答する。
 	 */
@@ -66,7 +70,7 @@ public class Table extends Object
 	{
 		return null;
 	}
-	
+
 	/**
 	 * 画像またはサムネイル画像の文字列を受け取って当該画像を応答する。
 	 */
@@ -74,7 +78,7 @@ public class Table extends Object
 	{
 		return null;
 	}
-	
+
 	/**
 	 * サムネイル画像群を応答する。
 	 */
@@ -82,7 +86,7 @@ public class Table extends Object
 	{
 		return null;
 	}
-	
+
 	/**
 	 * 自分自身を文字列にして。それを反応する。
 	 */
@@ -90,7 +94,7 @@ public class Table extends Object
 	{
 		return null;
 	}
-	
+
 	/**
 	 * ダプル群を応答する。
 	 */

@@ -7,23 +7,25 @@ import javax.swing.JOptionPane;
  */
 public class Translator extends Object
 {
-	
+
 	/**
 	 * CSVに由来するテーブルを記憶するフィールド
 	 */
 	private Table inputTable;
-	
+
 	/**
 	 * HTMLに由来するテーブルを記憶するフィールド
 	 */
 	private Table outputTable;
-	
+
 	/**
 	 * トランスレータのコンストラクタ。
 	 */
 	public Translator()
 	{
 		super();
+		this.inputTable = new Table();
+		this.outputTable = new Table();
 		return;
 	}
 
@@ -32,11 +34,15 @@ public class Translator extends Object
 	 */
 	public void perform()
 	{
+		//ダウンロードを使ってCSVをダウンロードしてくる
+		Downloader aDownloader = new Downloader();
+		aDownloader.downloadCSV();
+
 		String aString = "総理大臣のCSVファイルからHTMLページへの変換を無事に完了しました。\n";
 		JOptionPane.showMessageDialog(null, aString, "報告", JOptionPane.PLAIN_MESSAGE);
 		return;
 	}
-	
+
 	/**
 	 * 在位日数を計算して、それを文字列にして応答する。
 	 */
@@ -44,7 +50,7 @@ public class Translator extends Object
 	{
 		return null;
 	}
-	
+
 	/**
 	 * サムネイルが画像から画像へ飛ぶためのHTML文字列を作成して、それを応答する。
 	 */
@@ -52,7 +58,7 @@ public class Translator extends Object
 	{
 		return null;
 	}
-	
+
 	/**
 	 * 総理大臣のCSVファイルを基にしたテーブルから、HTMLページを基にするテーブルに変換して、それを応答する。
 	 */
@@ -61,5 +67,5 @@ public class Translator extends Object
 		return null;
 	}
 
-	
+
 }
