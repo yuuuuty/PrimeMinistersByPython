@@ -30,7 +30,7 @@ public class Table extends Object
 	/**
 	 * テーブルのコンストラクタ
 	 */
-	public Table()
+	Table()
 	{
 		System.out.println("[Table]:コンストラクタ起動");
 		this.images = new ArrayList<BufferedImage>();
@@ -42,33 +42,45 @@ public class Table extends Object
 	/**
 	 * タプルを追加する。
 	 */
-	public void add(Tuple aTuple)
+	void add(Tuple aTuple)
 	{
+		ArrayList<String> values = aTuple.values();
+		ArrayList<String> keys = aTuple.attributes().keys();
+		// if (values.get(this.attributes.indexOfImage()) != "画像")
+		// {
+		// values.add(values.get(this.attributes.indexOfImage()));
+		// if(keys.get(this.attributes.indexOfThumbnail()))
+		// {
+		//
+		// }
+		// }
+		this.tuples.add(aTuple);
 		return;
 	}
 
 	/**
 	 * 属性リストを応答する。
 	 */
-	public Attributes attributes()
+	Attributes attributes()
 	{
-		return null;
+		return this.attributes;
 	}
 
 	/**
 	 * 属性リストを設定する。
 	 */
-	public void attributes(Attributes instanceOfAttributes)
+	void attributes(Attributes instanceOfAttributes)
 	{
+		this.attributes = instanceOfAttributes;
 		return;
 	}
 
 	/**
 	 * 画像群を応答する。
 	 */
-	public ArrayList<BufferedImage> images()
+	ArrayList<BufferedImage> images()
 	{
-		return null;
+		return this.images;
 	}
 
 	/**
@@ -82,9 +94,9 @@ public class Table extends Object
 	/**
 	 * サムネイル画像群を応答する。
 	 */
-	public ArrayList<BufferedImage> thumbnails()
+	ArrayList<BufferedImage> thumbnails()
 	{
-		return null;
+		return this.thumbnails;
 	}
 
 	/**
@@ -92,14 +104,19 @@ public class Table extends Object
 	 */
 	public String toString()
 	{
-		return null;
+		String tuplesString = "";
+		for (Tuple tuple : tuples)
+        {
+	        tuplesString += tuple.toString()+"\n";
+        }
+		return tuplesString;
 	}
 
 	/**
 	 * ダプル群を応答する。
 	 */
-	public ArrayList<Tuple> tuples()
+	ArrayList<Tuple> tuples()
 	{
-		return null;
+		return this.tuples;
 	}
 }

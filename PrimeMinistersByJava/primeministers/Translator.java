@@ -1,6 +1,7 @@
 package primeministers;
 
 import javax.swing.JOptionPane;
+import java.io.File;
 
 /**
  * トランスレータ：総理大臣のCSVファイルをHTMLページへと変換するプログラム。
@@ -34,12 +35,21 @@ public class Translator extends Object
 	 */
 	public void perform()
 	{
-		//ダウンロードを使ってCSVをダウンロードしてくる
+		// ダウンロードを使ってCSVをダウンロードしてくる
 		Downloader aDownloader = new Downloader();
 		aDownloader.downloadCSV();
 
+		System.out.println("[Translator]一時的にファイルをローカルから読み込みます");
+		File CSVFile= new File("./PrimeMinisters.csv");
+		
+		System.out.println("[Translator]CSVファイル読み込み完了 \""+CSVFile+"\"");
+		Reader aReader = new Reader(CSVFile);
+		inputTable = aReader.table();
+		System.out.println("inputTable: \n"+inputTable);
+
 		String aString = "総理大臣のCSVファイルからHTMLページへの変換を無事に完了しました。\n";
-		JOptionPane.showMessageDialog(null, aString, "報告", JOptionPane.PLAIN_MESSAGE);
+		JOptionPane.showMessageDialog(null, aString, "報告",
+		        JOptionPane.PLAIN_MESSAGE);
 		return;
 	}
 
@@ -54,7 +64,7 @@ public class Translator extends Object
 	/**
 	 * サムネイルが画像から画像へ飛ぶためのHTML文字列を作成して、それを応答する。
 	 */
-	public String computeNumberOfImage(String periodString,Tuple aTuple,int no)
+	public String computeNumberOfImage(String periodString, Tuple aTuple, int no)
 	{
 		return null;
 	}
@@ -66,6 +76,5 @@ public class Translator extends Object
 	{
 		return null;
 	}
-
 
 }
