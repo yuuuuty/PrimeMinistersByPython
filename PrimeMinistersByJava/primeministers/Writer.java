@@ -13,6 +13,7 @@ public class Writer extends IO
 	 */
 	public Writer()
 	{
+        
 		return;
 	}
 	
@@ -45,6 +46,7 @@ public class Writer extends IO
 	 */
 	public void writeAttributesOn(BufferedWriter outputWriter)
 	{
+        
 		return;
 	}
 	
@@ -53,6 +55,7 @@ public class Writer extends IO
 	 */
 	public void writeFooterOn(BufferedWriter outputWriter)
 	{
+        
 		return;
 	}
 	
