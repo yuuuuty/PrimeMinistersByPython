@@ -9,7 +9,8 @@ import java.net.URL;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 
-
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 
 
 /**
@@ -118,32 +119,17 @@ public class Downloader extends IO
 			System.out.println("[Downloader]"+imageName+"のダウンロード開始");
 			
 			URL aURL = null;
+			BufferedImage anImage = null;
 			try
 			{
 				aURL = new URL(this.urlString()+imageName);
 
 			 
 				//入力用ストリーム
-				InputStream input = aURL.openStream();
+				anImage = ImageIO.read(aURL);
 			 
 				//出力用ストリーム
-				OutputStream output = new FileOutputStream(new File(IO.directoryOfPages(),imageName));
-			 
-				try {
-					byte[] bytes = new byte[1024];
-					int len = 0;
-					while ((len = input.read(bytes)) > 0)
-					{
-						output.write(bytes,0,len);
-						//System.out.println("test");
-					}
-					output.flush();
-				}
-				finally
-				{
-					output.close();
-					input.close();
-				}
+				ImageIO.write(anImage, "jpeg", new File(IO.directoryOfPages(),imageName));
 			}
 			catch(MalformedURLException e)
 			{
@@ -159,6 +145,14 @@ public class Downloader extends IO
 			{
 				System.out.println("エラーチェック[3]");
 				e.printStackTrace();
+			}
+			if(indexOfPicture == aTuple.attributes().indexOfImage())
+			{
+				this.table.images().add(anImage);
+			}
+			else
+			{
+				this.table.thumbnails().add(anImage);
 			}
 			System.out.println("[Downloader]"+imageName+"のダウンロード終了");
 
@@ -179,7 +173,7 @@ public class Downloader extends IO
 			System.out.println("[Downloader]:Thumbnailsディレクトリを作成");
 		}
 		
-		int index = this.table.attributes().indexOfImage();
+		int index = this.table.attributes().indexOfThumbnail();
 		
 		System.out.println("[Downloader]:Thumbnails=index:"+index);
 		
