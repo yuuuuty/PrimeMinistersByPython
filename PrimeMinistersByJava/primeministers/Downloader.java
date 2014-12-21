@@ -10,6 +10,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 
 
+
+
 /**
  * ダウンローダ：総理大臣のCSVファイル・画像ファイル・サムネイル画像ファイルをダウンロードする。
  */
@@ -38,12 +40,13 @@ public class Downloader extends IO
 	{
 		 try
 		 {
-			 URL url = new URL(this.url + "PrimeMinisters.csv");
+			 URL url = new URL(this.urlStringOfCSV());
 
 			 //入力用ストリーム
 			 InputStream input = url.openStream();
 
 			 //出力用ストリーム
+			 System.out.println("[Downloader]:ディレクトリチェック="+IO.directoryOfPages());
 			 OutputStream output = new FileOutputStream(new File(IO.directoryOfPages(),"PrimeMinisters.csv"));
 
 			 try {
@@ -64,14 +67,17 @@ public class Downloader extends IO
 	    }
 		catch(MalformedURLException e)
 		{
+			System.out.println("エラーチェック[1]");
 			e.printStackTrace();
 		}
 		catch(IOException e)
 		{
+			System.out.println("エラーチェック[2]");
 			e.printStackTrace();
 		}
 		catch(Exception e)
 		{
+			System.out.println("エラーチェック[3]");
 			e.printStackTrace();
 		}
 		return;
@@ -82,6 +88,21 @@ public class Downloader extends IO
 	 */
 	public void downloadImages()
 	{
+		File aFile = new File(IO.directoryOfPages(),"images");
+		
+		if(aFile.exists() == false)
+		{
+			aFile.mkdir();
+			System.out.println("[Downloader]:imageディレクトリを作成");
+		}
+		
+		int index = this.table.attributes().indexOfImage();
+
+		System.out.println("[Downloader]:image=index:"+index);
+		
+		this.downloadPictures(index);
+
+		
 		return;
 	}
 
@@ -90,6 +111,58 @@ public class Downloader extends IO
 	 */
 	private void downloadPictures(int indexOfPicture)
 	{
+		//イメージの名前をインデックスから取得し、それらからダウンロードを行う、
+		for(Tuple aTuple : this.table().tuples())
+		{
+			String imageName = aTuple.values().get(indexOfPicture);
+			System.out.println("[Downloader]"+imageName+"のダウンロード開始");
+			
+			URL aURL = null;
+			try
+			{
+				aURL = new URL(this.urlString()+imageName);
+
+			 
+				//入力用ストリーム
+				InputStream input = aURL.openStream();
+			 
+				//出力用ストリーム
+				OutputStream output = new FileOutputStream(new File(IO.directoryOfPages(),imageName));
+			 
+				try {
+					byte[] bytes = new byte[1024];
+					int len = 0;
+					while ((len = input.read(bytes)) > 0)
+					{
+						output.write(bytes,0,len);
+						//System.out.println("test");
+					}
+					output.flush();
+				}
+				finally
+				{
+					output.close();
+					input.close();
+				}
+			}
+			catch(MalformedURLException e)
+			{
+				System.out.println("エラーチェック[1]");
+				e.printStackTrace();
+			}
+			catch(IOException e)
+			{
+				System.out.println("エラーチェック[2]");
+				e.printStackTrace();
+			}
+			catch(Exception e)
+			{
+				System.out.println("エラーチェック[3]");
+				e.printStackTrace();
+			}
+			System.out.println("[Downloader]"+imageName+"のダウンロード終了");
+
+		}
 		return;
 	}
 
@@ -98,6 +171,21 @@ public class Downloader extends IO
 	 */
 	public void downloadThumbnails()
 	{
+		File aFile = new File(IO.directoryOfPages(),"Thumbnails");
+		
+		if(aFile.exists() == false)
+		{
+			aFile.mkdir();
+			System.out.println("[Downloader]:Thumbnailsディレクトリを作成");
+		}
+		
+		int index = this.table.attributes().indexOfImage();
+		
+		System.out.println("[Downloader]:Thumbnails=index:"+index);
+		
+		this.downloadPictures(index);
+		
+		
 		return;
 	}
 
@@ -106,7 +194,10 @@ public class Downloader extends IO
 	 */
 	public Table table()
 	{
-		return null;
+		Reader aReader = new Reader();
+		this.table = aReader.table();
+		
+		return this.table;
 	}
 
 	/**
@@ -122,7 +213,8 @@ public class Downloader extends IO
 	 */
 	static String urlStringOfCSV()
 	{
-		return null;
+		return urlString()+"PrimeMinisters.csv";
+
 	}
 
 }

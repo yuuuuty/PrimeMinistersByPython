@@ -16,9 +16,9 @@ public class Reader extends IO
 	/**
 	 * リーダのコンストラクタ
 	 */
-	public Reader(File csvFileName)
+	public Reader()
 	{
-		this.filename = csvFileName;
+		this.filename = new File(IO.directoryOfPages(),"PrimeMinisters.csv");
 		System.out.println("[Reader]ファイルネーム確認 \"" + filename + "\"");
 
 		return;

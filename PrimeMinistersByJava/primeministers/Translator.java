@@ -43,9 +43,13 @@ public class Translator extends Object
 		File CSVFile= new File("./PrimeMinisters.csv");
 		
 		System.out.println("[Translator]CSVファイル読み込み完了 \""+CSVFile+"\"");
-		Reader aReader = new Reader(CSVFile);
-		inputTable = aReader.table();
-		System.out.println("inputTable: \n"+inputTable);
+		this.inputTable = aDownloader.table();
+		//System.out.println("inputTable: \n"+inputTable);
+		
+		aDownloader.downloadImages();
+		aDownloader.downloadThumbnails();
+		
+		
 
 		String aString = "総理大臣のCSVファイルからHTMLページへの変換を無事に完了しました。\n";
 		JOptionPane.showMessageDialog(null, aString, "報告",
