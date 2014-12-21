@@ -50,27 +50,21 @@ public abstract class IO extends Object
 	public static File directoryOfPages()
 	{
 		String homeDirectory = System.getProperty("user.home");
-		File aFile = new File(homeDirectory + "/Desktop/SouriDaijin");
-		if (!aFile.exists())
+		File aDirectory = new File(homeDirectory + "/Desktop/SouriDaijin/");
+		if (!aDirectory.exists())
 		{
-			try
+
+			if (aDirectory.mkdir())
 			{
-				if (aFile.createNewFile())
-				{
-					System.out.println("[IO]ディレクトリ作成");
-				}
-				else
-				{
-					System.out.println("[IO]ディレクトリ作成に失敗");
-				}
+				System.out.println("[IO]ディレクトリ作成");
 			}
-			catch (IOException e)
+			else
 			{
-				e.printStackTrace();
+				System.out.println("[IO]ディレクトリ作成に失敗");
 			}
 
 		}
-		return aFile;
+		return aDirectory;
 	}
 
 	/**
@@ -147,7 +141,7 @@ public abstract class IO extends Object
 		{
 			tokenList.add(aToken);
 		}
-		
+
 		return tokenList;
 	}
 
