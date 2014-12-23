@@ -3,9 +3,10 @@ package primeministers;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.util.Date;
+
 /**
  * ライタ：総理大臣の情報のテーブルをHTMLページとして書き出す。
  */
@@ -16,7 +17,7 @@ public class Writer extends IO
 	 */
 	public Writer()
 	{
-        
+		super();
 		return;
 	}
 	
@@ -25,7 +26,7 @@ public class Writer extends IO
 	 */
 	public Attributes attributes()
 	{
-		return null;
+		return this.table.attributes();
 	}
 	
 	/**
@@ -33,6 +34,7 @@ public class Writer extends IO
 	 */
 	public Table table(Table aTable)
 	{
+		this.table = aTable;
 		return null;
 	}
 	
@@ -41,7 +43,7 @@ public class Writer extends IO
 	 */
 	public ArrayList<Tuple> tuples()
 	{
-		return null;
+		return this.table.tuples();
 	}
 	
 	/**
@@ -49,7 +51,21 @@ public class Writer extends IO
 	 */
 	public void writeAttributesOn(BufferedWriter outputWriter)
 	{
-        
+        ArrayList<String> strings = attributes().names();
+        try
+        {
+        	outputWriter.write("\t\t\t\t\t\t<tr>\n");
+        	for(String aString: strings){
+        		outputWriter.write("\t\t\t\t\t\t<td class=\"center-pink\"><strong>");
+        		outputWriter.write(aString);
+        		outputWriter.write("</strong></td>\n");
+        	}
+        	outputWriter.write("\t\t\t\t\t\t<tr>\n");
+        }
+        catch(IOException e)
+        {
+        	e.printStackTrace();
+        }
 		return;
 	}
 	
@@ -61,7 +77,7 @@ public class Writer extends IO
 		Date date = new Date();
 		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy/M/d");
 		SimpleDateFormat sdf2 = new SimpleDateFormat("H:m:s");
-        String name_string = "PrimeMinisters written by Python";
+        String name_string = "PrimeMinisters written by java";
         String date_string = sdf1.format(date);
         String time_string = sdf2.format(date);
         try
@@ -122,6 +138,8 @@ public class Writer extends IO
 	 */
 	public void writeTableBodyOn(BufferedWriter outputWriter)
 	{
+		this.writeAttributesOn(outputWriter);
+		this.writeTuplesOn(outputWriter);
 		return;
 	}
 	
@@ -130,6 +148,34 @@ public class Writer extends IO
 	 */
 	public void writeTuplesOn(BufferedWriter outputWriter)
 	{
+		int index = 0;
+		ArrayList<Tuple> tuples = tuples();
+		try
+		{
+			for(Tuple aTuple : tuples)
+			{
+				outputWriter.write("\t\t\t\t\t\t<tr>\n");
+				ArrayList<String>values = aTuple.values();
+				
+				for(String aString : values){
+					if(index % 2 == 0)
+					{
+						outputWriter.write("\t\t\t\t\t\t<td class=\"center-yellow\">");
+					}
+					else
+					{
+						outputWriter.write("\t\t\t\t\t\t<td class=\"center-blue\">");
+					}
+					outputWriter.write(aString);
+					outputWriter.write("</td>\n");
+				}
+			}
+			outputWriter.write("\t\t\t\t\t\t<tr>\n");
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
 		return;
 	}
 }
